@@ -1,0 +1,43 @@
+In index.html, add base tag with href to a forward slash.
+<base href="/">
+
+Configure the routes in the appRoutingModule(app-routing.module.ts)
+const routes: Routes = [
+  {path:'employees',component:EmployeeListComponent},
+  {path:'departments', component:DepartmentListComponent}
+];
+
+Pass it as an argument to the forRoot method of the RouterModule
+imports: [RouterModule.forRoot(routes)]
+
+Export the AppRoutingModule and the routingComponents.
+export class AppRoutingModule { }
+export const routingComponents=[EmployeeListComponent, DepartmentListComponent];
+
+Import it in the appModule
+Import the AppRoutingModule and the routingComponents.
+declarations: [
+    AppComponent,
+    routingComponents
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+
+To navigate via buttons use the routerLink directive and specify the path.
+To change the style of the active link use the directive routerLinkActive and specify the class.
+  <nav>
+  <a routerLink="departments" routerLinkActive="active">Departments</a>
+  <a routerLink="employees" routerLinkActive="active">Employees</a>
+  </nav>
+
+Wild card routes:
+if the url path is null, and if its an unknown path.
+const routes: Routes = [
+  {path:'', redirectTo:'/departments', pathMatch:'full'},
+  {path:'employees',component:EmployeeListComponent},
+  {path:'departments', component:DepartmentListComponent},
+  {path:'**', component:PageNotFoundComponent}
+];
+
